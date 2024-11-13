@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -40,8 +39,8 @@ class _JokePageState extends State<JokePage> {
             }
             if (snapshot.hasData) {
               final joke = snapshot.data;
-              final setup = joke['setup'];
-              final delivery = joke['delivery'];
+              final setup = joke['setup'] ?? "Try Again";
+              final delivery = joke['delivery']??"Try Again" ;
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -59,7 +58,8 @@ class _JokePageState extends State<JokePage> {
                           width: MediaQuery.of(context).size.width,
                           child: FlipCard(
                               front: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Center(
                                   child: Text(
                                     "$setup!",
@@ -68,7 +68,8 @@ class _JokePageState extends State<JokePage> {
                                 ),
                               ),
                               back: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Center(
                                   child: Text(
                                     '$delivery',
@@ -82,7 +83,6 @@ class _JokePageState extends State<JokePage> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-
                         setState(() {
                           fetchJoke();
                         });
